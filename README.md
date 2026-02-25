@@ -9,9 +9,11 @@
 </p>
 
 <div align="center">
-  <img src="screenshot.png" alt="Tilda AI Agent Feeds Interface" width="250" />
-  <img src="screenshot_text.png" alt="Tilda AI Agent Text" width="250" />
-  <img src="screenshot_cover.png" alt="Tilda AI Agent Cover" width="250" />
+  <img src="screenshot.png" alt="Tilda AI Agent Feeds Interface" width="230" />
+  <img src="screenshot_text.png" alt="Tilda AI Agent Text" width="230" />
+  <img src="screenshot_rag.png" alt="Tilda AI Agent RAG" width="230" />
+  <img src="screenshot_cover.png" alt="Tilda AI Agent Cover" width="230" />
+  <img src="screenshot_gen.png" alt="Tilda AI Agent Gen" width="230" />
 </div>
 
 <div align="center">
