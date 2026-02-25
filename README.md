@@ -68,6 +68,45 @@
 
 ---
 
+## 🧩 Архитектура работы Агента
+
+```mermaid
+graph TD
+    %% Стили узлов
+    classDef ui fill:#6B46C1,stroke:#4C2889,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef agent fill:#FFD700,stroke:#D4AF37,stroke-width:2px,color:#000,font-weight:bold;
+    classDef api fill:#10B981,stroke:#059669,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef db fill:#3B82F6,stroke:#2563EB,stroke-width:2px,color:#fff,font-weight:bold;
+
+    subgraph "1. Интерфейс (Браузер / Tilda)"
+        A[Панель Tilda IA Agent]:::ui -->|Инструкции + Тема + Настройки| B(Extension Background):::ui
+        H(Инжектор DOM Tilda):::ui -->|Автозаполнение полей| I[Готовая SEO-Статья]:::ui
+    end
+
+    subgraph "2. Ядро Агента (Service Worker)"
+        B --> C{SEO Wordstat Agent}:::agent
+        C -.->|Сбор семантики| D[Yandex Wordstat]:::api
+        D -.->|Релевантные ключи| C
+        
+        C --> E{Обогащение Контекста}:::agent
+        E -.->|Local RAG| DB1[(Память Бренда)]:::db
+        E -.->|Tone of Voice| DB2[(Пресеты Стиля)]:::db
+        E -.->|Super-Prompt v4| DB3[(SEO/GEO Правила)]:::db
+        
+        E --> F[Оркестратор Генерации]:::agent
+    end
+
+    subgraph "3. Нейросети (kie.ai / Official)"
+        F -->|Текстовый Промпт| G1[Gemini 3.1 Pro]:::api
+        F -->|Визуальный Промпт| G2[Nano Banana / Gemini Image]:::api
+    end
+
+    G1 -->|Строгий JSON-ответ| H
+    G2 -->|Готовая Обложка (URL)| H
+```
+
+---
+
 ## 📝 Разработка и структура
 
 - `manifest.json` — конфигурация расширения (Manifest V3).
