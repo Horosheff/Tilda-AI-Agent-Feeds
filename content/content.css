@@ -1,0 +1,968 @@
+/* Tilda Kovcheg — Jaw-Dropping Light Theme */
+
+#tilda-flows-extension-root {
+  --tk-bg: rgba(255, 255, 255, 0.85);
+  --tk-blur: blur(32px);
+  --tk-border: rgba(226, 232, 240, 0.8);
+  --tk-shadow: 0 32px 64px -12px rgba(15, 23, 42, 0.12), 0 0 1px rgba(0,0,0,0.1);
+  --tk-text-main: #0f172a;
+  --tk-text-muted: #64748b;
+  --tk-primary: #10b981;
+  --tk-primary-dark: #059669;
+  --tk-primary-glow: rgba(16, 185, 129, 0.35);
+  --tk-danger: #ef4444;
+  --tk-danger-bg: #fef2f2;
+  --tk-success-bg: #ecfdf5;
+  --tk-success-text: #065f46;
+  --tk-radius-lg: 24px;
+  --tk-radius-md: 16px;
+  --tk-radius-sm: 10px;
+
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 2147483647;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  width: 440px;
+  max-width: calc(100vw - 32px);
+  background: var(--tk-bg);
+  backdrop-filter: var(--tk-blur);
+  -webkit-backdrop-filter: var(--tk-blur);
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-lg);
+  box-shadow: var(--tk-shadow);
+  color: var(--tk-text-main);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  transform-origin: top right;
+  animation: tfe-slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 32px);
+}
+
+#tilda-flows-extension-root * {
+  box-sizing: border-box;
+}
+
+#tilda-flows-extension-root .tfe-panel {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+#tilda-flows-extension-root .tfe-sticky-bottom {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid var(--tk-border);
+  padding: 16px 20px;
+  box-shadow: 0 -4px 24px -10px rgba(15, 23, 42, 0.08);
+}
+
+@keyframes tfe-slideIn {
+  from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Background animated mesh */
+#tilda-flows-extension-root::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  left: -50px;
+  width: 150%;
+  height: 250px;
+  background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 60%),
+              radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+  z-index: 0;
+  pointer-events: none;
+  animation: tfe-mesh-drift 10s ease-in-out infinite alternate;
+}
+
+@keyframes tfe-mesh-drift {
+  0% { transform: translateY(0) translateX(0) scale(1); }
+  100% { transform: translateY(20px) translateX(-20px) scale(1.05); }
+}
+
+/* Header */
+#tilda-flows-extension-root .tfe-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--tk-border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+}
+
+#tilda-flows-extension-root .tfe-header-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease;
+}
+#tilda-flows-extension-root .tfe-header-logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+#tilda-flows-extension-root .tfe-header-title {
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  flex: 1;
+  margin-left: 12px;
+  background: linear-gradient(90deg, #0f172a 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#tilda-flows-extension-root .tfe-header-toggle,
+#tilda-flows-extension-root .tfe-header-settings {
+  background: #f8fafc;
+  border: 1px solid var(--tk-border);
+  color: #64748b;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  margin-left: 8px;
+}
+
+#tilda-flows-extension-root .tfe-header-toggle:hover,
+#tilda-flows-extension-root .tfe-header-settings:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+#tilda-flows-extension-root .tfe-header-settings.active {
+  background: var(--tk-primary);
+  color: #fff;
+  border-color: var(--tk-primary-dark);
+  box-shadow: 0 4px 12px var(--tk-primary-glow);
+}
+
+/* Animated Settings Gear */
+@keyframes tfe-spin {
+  100% { transform: rotate(360deg); }
+}
+#tilda-flows-extension-root .tfe-header-settings:hover .tfe-icon-gear {
+  animation: tfe-spin 3s linear infinite;
+}
+#tilda-flows-extension-root .tfe-header-settings.active .tfe-icon-gear {
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+
+/* Agent Intro */
+#tilda-flows-extension-root .tfe-agent-intro {
+  position: relative;
+  z-index: 1;
+  padding: 16px 20px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--tk-text-muted);
+  border-bottom: 1px solid var(--tk-border);
+  background: rgba(248, 250, 252, 0.4);
+}
+
+#tilda-flows-extension-root .tfe-channel-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+#tilda-flows-extension-root .tfe-channel-btn {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+#tilda-flows-extension-root .tfe-channel-btn:hover {
+  border-color: #94a3b8;
+  color: #0f172a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+}
+
+#tilda-flows-extension-root .tfe-channel-btn-black {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
+}
+#tilda-flows-extension-root .tfe-channel-btn-black:hover {
+  background: #1e293b;
+  color: #fff;
+  border-color: #1e293b;
+}
+
+/* Scrollable Panel */
+#tilda-flows-extension-root .tfe-panel {
+  position: relative;
+  z-index: 1;
+  padding: 16px 20px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+#tilda-flows-extension-root .tfe-panel::-webkit-scrollbar {
+  width: 6px;
+}
+#tilda-flows-extension-root .tfe-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+#tilda-flows-extension-root .tfe-panel::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+/* Accordions */
+#tilda-flows-extension-root .tfe-section {
+  background: #fff;
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-md);
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+#tilda-flows-extension-root .tfe-section:hover {
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+}
+
+#tilda-flows-extension-root .tfe-acc-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--tk-text-main);
+  border-radius: var(--tk-radius-md);
+  transition: background 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+#tilda-flows-extension-root .tfe-acc-toggle:hover {
+  background: rgba(248, 250, 252, 0.8);
+}
+
+#tilda-flows-extension-root .tfe-acc-title {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+#tilda-flows-extension-root .tfe-acc-chevron {
+  color: #94a3b8;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 12px;
+}
+#tilda-flows-extension-root .tfe-accordion.open .tfe-acc-chevron {
+  transform: rotate(180deg);
+}
+
+#tilda-flows-extension-root .tfe-acc-body {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 16px;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.3s ease;
+}
+#tilda-flows-extension-root .tfe-accordion.open .tfe-acc-body {
+  max-height: 1200px;
+  opacity: 1;
+  padding-bottom: 16px;
+}
+
+/* Forms & Inputs */
+#tilda-flows-extension-root .tfe-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+#tilda-flows-extension-root .tfe-section-title:first-child {
+  margin-top: 0;
+}
+
+#tilda-flows-extension-root .tfe-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 4px;
+  margin-top: 10px;
+}
+
+#tilda-flows-extension-root .tfe-input,
+#tilda-flows-extension-root .tfe-textarea,
+#tilda-flows-extension-root select.tfe-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--tk-radius-sm);
+  color: var(--tk-text-main);
+  font-size: 13px;
+  font-family: inherit;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
+}
+
+#tilda-flows-extension-root .tfe-textarea {
+  min-height: 72px;
+  resize: vertical;
+  overflow-y: hidden;
+}
+
+#tilda-flows-extension-root .tfe-input:focus,
+#tilda-flows-extension-root .tfe-textarea:focus,
+#tilda-flows-extension-root select.tfe-input:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--tk-primary);
+  box-shadow: 0 0 0 3px var(--tk-primary-glow), inset 0 1px 2px rgba(0,0,0,0.02);
+}
+
+#tilda-flows-extension-root .tfe-hint {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Beautiful Toggle Checkboxes */
+#tilda-flows-extension-root .tfe-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  margin-top: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#tilda-flows-extension-root .tfe-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 40px;
+  height: 24px;
+  background: #cbd5e1;
+  border-radius: 24px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  margin: 0;
+  flex-shrink: 0;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#tilda-flows-extension-root .tfe-checkbox::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="%2394a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>') center/10px no-repeat;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#tilda-flows-extension-root .tfe-checkbox:checked {
+  background: var(--tk-primary);
+}
+
+#tilda-flows-extension-root .tfe-checkbox:checked::after {
+  transform: translateX(16px) rotate(360deg);
+  background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%2310b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>') center/12px no-repeat;
+}
+
+#tilda-flows-extension-root .tfe-checkbox:focus-visible {
+  box-shadow: 0 0 0 3px var(--tk-primary-glow);
+}
+
+/* Buttons */
+#tilda-flows-extension-root .tfe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: var(--tk-radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+#tilda-flows-extension-root .tfe-btn:active {
+  transform: scale(0.97);
+}
+
+/* Primary Jaw-Dropping Button */
+#tilda-flows-extension-root .tfe-btn.primary {
+  width: 100%;
+  min-height: 48px;
+  font-size: 15px;
+  background: linear-gradient(135deg, var(--tk-primary) 0%, var(--tk-primary-dark) 100%);
+  color: #fff;
+  box-shadow: 0 8px 20px -4px var(--tk-primary-glow);
+  z-index: 1;
+}
+
+#tilda-flows-extension-root .tfe-btn.primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: skewX(-20deg);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+#tilda-flows-extension-root .tfe-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -4px rgba(16, 185, 129, 0.5);
+}
+
+#tilda-flows-extension-root .tfe-btn.primary:hover::before {
+  left: 200%;
+}
+
+/* Stop Button */
+#tilda-flows-extension-root .tfe-btn.stop {
+  background: var(--tk-danger-bg);
+  color: var(--tk-danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+#tilda-flows-extension-root .tfe-btn.stop:hover {
+  background: #fee2e2;
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #b91c1c;
+}
+
+/* Subdued & Ghost */
+#tilda-flows-extension-root .tfe-btn.subdued {
+  background: #f1f5f9;
+  color: #475569;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+}
+#tilda-flows-extension-root .tfe-btn.subdued:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+#tilda-flows-extension-root .tfe-btn.ghost {
+  background: transparent;
+  color: #64748b;
+  border: none;
+}
+#tilda-flows-extension-root .tfe-btn.ghost:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+/* Actions Grid */
+#tilda-flows-extension-root .tfe-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Stunning Status Card */
+#tilda-flows-extension-root .tfe-status-card {
+  margin-top: 16px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-md);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+
+#tilda-flows-extension-root .tfe-status-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+#tilda-flows-extension-root .tfe-status-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
+#tilda-flows-extension-root .tfe-status-percent {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--tk-primary);
+  background: linear-gradient(135deg, var(--tk-primary) 0%, var(--tk-primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animated Progress Bar */
+#tilda-flows-extension-root .tfe-progress {
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+#tilda-flows-extension-root .tfe-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tk-primary) 0%, #34d399 100%);
+  position: relative;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#tilda-flows-extension-root.is-generating .tfe-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+#tilda-flows-extension-root .tfe-status-msg {
+  font-size: 12px;
+  font-weight: 500;
+  color: #334155;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* Shimmer Skeletons */
+#tilda-flows-extension-root .tfe-status-skeletons {
+  display: none;
+  margin-bottom: 12px;
+}
+#tilda-flows-extension-root.is-generating .tfe-status-skeletons {
+  display: block;
+}
+
+#tilda-flows-extension-root .tfe-skeleton-line {
+  height: 10px;
+  background: #f1f5f9;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+#tilda-flows-extension-root .tfe-skeleton-line.short {
+  width: 60%;
+  margin-bottom: 0;
+}
+#tilda-flows-extension-root .tfe-skeleton-line::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+/* Steps Indicator */
+#tilda-flows-extension-root .tfe-status-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--tk-border);
+}
+
+#tilda-flows-extension-root .tfe-step {
+  position: relative;
+  font-size: 10px;
+  font-weight: 600;
+  color: #94a3b8;
+  padding-left: 14px;
+  transition: all 0.3s ease;
+}
+
+#tilda-flows-extension-root .tfe-step::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  transition: all 0.3s ease;
+}
+
+#tilda-flows-extension-root .tfe-step.active {
+  color: var(--tk-primary);
+}
+#tilda-flows-extension-root .tfe-step.active::before {
+  background: var(--tk-primary);
+  box-shadow: 0 0 0 3px var(--tk-primary-glow);
+  animation: pulse-glow 2s infinite;
+}
+
+#tilda-flows-extension-root .tfe-step.done {
+  color: #334155;
+}
+#tilda-flows-extension-root .tfe-step.done::before {
+  content: '✓';
+  width: 14px;
+  height: 14px;
+  left: -3px;
+  background: var(--tk-primary);
+  color: #fff;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Keywords Block */
+#tilda-flows-extension-root .tfe-used-keywords {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--tk-radius-sm);
+}
+
+#tilda-flows-extension-root .tfe-used-keywords-title {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+#tilda-flows-extension-root .tfe-used-keywords-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+#tilda-flows-extension-root .tfe-used-key-main {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tk-success-text);
+  background: var(--tk-success-bg);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  display: inline-block;
+  width: fit-content;
+}
+
+#tilda-flows-extension-root .tfe-used-keywords-muted {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+#tilda-flows-extension-root .tfe-key-chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#tilda-flows-extension-root .tfe-key-chip {
+  font-size: 11px;
+  color: #475569;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  padding: 3px 8px;
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+/* Settings Collapse */
+#tilda-flows-extension-root .tfe-settings {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+  opacity: 0;
+  background: #f8fafc;
+}
+#tilda-flows-extension-root .tfe-settings.tfe-settings-open {
+  max-height: 500px;
+  opacity: 1;
+  border-bottom: 1px solid var(--tk-border);
+}
+#tilda-flows-extension-root .tfe-settings-inner {
+  padding: 16px 20px;
+}
+
+/* Collapsed Tab (Floating Bubble) */
+#tilda-flows-extension-root.collapsed {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: 28px;
+  transform: translateX(0);
+  padding: 0;
+  overflow: visible;
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.25);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: none;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+#tilda-flows-extension-root.collapsed::before { display: none; }
+#tilda-flows-extension-root.collapsed .tfe-panel,
+#tilda-flows-extension-root.collapsed .tfe-sticky-bottom,
+#tilda-flows-extension-root.collapsed .tfe-header,
+#tilda-flows-extension-root.collapsed .tfe-agent-intro {
+  display: none;
+}
+#tilda-flows-extension-root .tfe-collapsed-tab {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--tk-primary) 0%, var(--tk-primary-dark) 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+#tilda-flows-extension-root.collapsed .tfe-collapsed-tab {
+  display: flex;
+}
+#tilda-flows-extension-root.collapsed .tfe-collapsed-tab:hover {
+  transform: scale(1.05);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), 0 8px 24px rgba(16, 185, 129, 0.3);
+}
+/* Animated Cloud Icon */
+#tilda-flows-extension-root .tfe-cloud-icon {
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+  pointer-events: none;
+}
+@keyframes tfe-float-up {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes tfe-particle-float {
+  0% { transform: translateY(0) scale(1); opacity: 0.8; }
+  50% { transform: translateY(-6px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 0.8; }
+}
+#tilda-flows-extension-root .tfe-cloud-base,
+#tilda-flows-extension-root .tfe-cloud-top {
+  animation: tfe-float-up 4s ease-in-out infinite;
+  transform-origin: center;
+}
+#tilda-flows-extension-root .tfe-particle {
+  animation: tfe-particle-float 3s ease-in-out infinite;
+}
+#tilda-flows-extension-root .tfe-particle.p1 { animation-delay: 0s; }
+#tilda-flows-extension-root .tfe-particle.p2 { animation-delay: 1s; }
+#tilda-flows-extension-root .tfe-particle.p3 { animation-delay: 2s; }
+#tilda-flows-extension-root .tfe-particle.p4 { animation-delay: 0.5s; }
+
+/* Tooltips */
+#tilda-flows-extension-root .tfe-flex-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#tilda-flows-extension-root .tfe-tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+}
+#tilda-flows-extension-root .tfe-info-icon {
+  display: flex;
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+#tilda-flows-extension-root .tfe-info-icon:hover {
+  color: var(--tk-primary);
+}
+#tilda-flows-extension-root .tfe-tooltip-content {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  width: max-content;
+  max-width: 260px;
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 10px 14px;
+  border-radius: var(--tk-radius-sm);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: normal;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100;
+  pointer-events: none;
+}
+#tilda-flows-extension-root .tfe-tooltip-content::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1e293b;
+}
+#tilda-flows-extension-root .tfe-tooltip-wrap:hover .tfe-tooltip-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+#tilda-flows-extension-root .tfe-tooltip-content a {
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: 600;
+}
+#tilda-flows-extension-root .tfe-tooltip-content a:hover {
+  text-decoration: underline;
+}
+
+/* Ripple */
+#tilda-flows-extension-root .tfe-ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: tfe-ripple-anim 0.6s linear;
+  pointer-events: none;
+}
+@keyframes tfe-ripple-anim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* References */
+#tilda-flows-extension-root .tfe-refs { margin-top: 8px; }
+#tilda-flows-extension-root .tfe-ref-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: stretch; }
+#tilda-flows-extension-root .tfe-ref-row > div > input.tfe-ref-url { flex: none; width: 100%; margin: 0; }
+#tilda-flows-extension-root .tfe-ref-remove {
+  width: 36px;
+  border-radius: var(--tk-radius-sm);
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+#tilda-flows-extension-root .tfe-ref-remove:hover {
+  background: var(--tk-danger-bg);
+  color: var(--tk-danger);
+  border-color: rgba(239,68,68,0.3);
+}
+
+/* Image model specific */
+#tilda-flows-extension-root .tfe-image-row { display: none; margin-top: 10px; }
+#tilda-flows-extension-root .tfe-image-row.active { display: block; }
+#tilda-flows-extension-root .tfe-wordstat-region-wrap {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: var(--tk-radius-sm);
+  border: 1px dashed #cbd5e1;
+}
+#tilda-flows-extension-root .tfe-wordstat-region-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* Cover presets */
+#tilda-flows-extension-root .tfe-cover-presets {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-md);
+}
+#tilda-flows-extension-root .tfe-cover-preset-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+#tilda-flows-extension-root .tfe-cover-preset-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* Visibility toggles & Status classes */
+#tilda-flows-extension-root .tfe-status-card { display: none; }
+#tilda-flows-extension-root .tfe-status-card.show { display: block; animation: tfe-slideIn 0.3s ease; }
+#tilda-flows-extension-root .tfe-status { display: none; padding: 12px; margin-top: 12px; border-radius: var(--tk-radius-sm); font-size: 12px; font-weight: 500; }
+#tilda-flows-extension-root .tfe-status.show { display: block; animation: popIn 0.3s ease; }
+#tilda-flows-extension-root .tfe-status.success { background: var(--tk-success-bg); color: var(--tk-success-text); border: 1px solid rgba(16, 185, 129, 0.2); }
+#tilda-flows-extension-root .tfe-status.error { background: var(--tk-danger-bg); color: var(--tk-danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+#tilda-flows-extension-root .tfe-status.progress { background: #eff6ff; color: #1d4ed8; border: 1px solid rgba(59, 130, 246, 0.2); }
+
+#tilda-flows-extension-root .tfe-status-card.error { border-color: rgba(239, 68, 68, 0.3); background: #fffcfc; }
+#tilda-flows-extension-root .tfe-status-card.error .tfe-progress-fill { background: linear-gradient(90deg, #ef4444 0%, #f87171 100%); }
+#tilda-flows-extension-root .tfe-status-card.success .tfe-progress-fill { background: linear-gradient(90deg, #10b981 0%, #34d399 100%); }

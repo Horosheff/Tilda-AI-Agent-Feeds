@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+.cursor/
+backup/
+playwright-*.js
+DEV.md
+PLAN.md
+package.json
+package-lock.json

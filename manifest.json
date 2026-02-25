@@ -1,0 +1,61 @@
+{
+  "manifest_version": 3,
+  "name": "TILDA IA AGENT",
+  "version": "1.0.0",
+  "description": "Автозаполнение постов Tilda Потоки: текст (Gemini 3 Pro) и обложка (Nano Banana Pro) через kie.ai",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "<all_urls>",
+    "https://*.tilda.cc/*",
+    "https://tilda.cc/*",
+    "https://*.tilda.ru/*",
+    "https://tilda.ru/*",
+    "https://feeds.tilda.ru/*",
+    "https://*.tilda.ws/*",
+    "https://publish.tilda.cc/*",
+    "https://api.kie.ai/*",
+    "https://api.wordstat.yandex.net/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [{
+    "matches": [
+      "https://*.tilda.cc/*",
+      "https://tilda.cc/*",
+      "https://*.tilda.ru/*",
+      "https://tilda.ru/*",
+      "https://feeds.tilda.ru/*",
+      "https://*.tilda.ws/*",
+      "https://publish.tilda.cc/*"
+    ],
+    "js": ["content/content.js"],
+    "css": ["content/content.css"],
+    "run_at": "document_end",
+    "all_frames": true
+  }],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "TILDA IA AGENT — настройки",
+    "default_icon": {
+      "16": "tilda-kovcheg.png",
+      "48": "tilda-kovcheg.png",
+      "128": "tilda-kovcheg.png"
+    }
+  },
+  "icons": {
+    "16": "tilda-kovcheg.png",
+    "48": "tilda-kovcheg.png",
+    "128": "tilda-kovcheg.png"
+  },
+  "web_accessible_resources": [{
+    "resources": ["tilda-kovcheg.png", "content/injected.js"],
+    "matches": [
+      "https://*.tilda.cc/*",
+      "https://tilda.cc/*",
+      "https://*.tilda.ru/*",
+      "https://tilda.ru/*",
+      "https://feeds.tilda.ru/*",
+      "https://*.tilda.ws/*",
+      "https://publish.tilda.cc/*"
+    ]
+  }]
+}
