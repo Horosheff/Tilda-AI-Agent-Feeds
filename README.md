@@ -9,6 +9,10 @@
 </p>
 
 <div align="center">
+  <img src="screenshot.png" alt="Tilda AI Agent Feeds Interface" width="400" />
+</div>
+
+<div align="center">
   <img src="https://img.shields.io/badge/Chrome-Extension-blue?logo=googlechrome&logoColor=white" alt="Chrome Extension" />
   <img src="https://img.shields.io/badge/AI-Gemini%203%20Pro-purple" alt="AI: Gemini 3 Pro" />
   <img src="https://img.shields.io/badge/Images-Nano%20Banana%20Pro-yellow" alt="Images: Nano Banana Pro" />
