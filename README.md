@@ -2,14 +2,16 @@
   <img src="tilda-kovcheg.png" alt="Tilda AI Agent Feeds Logo" width="120" />
 </div>
 
-<h1 align="center">Tilda AI Agent Feeds (ex. Tilda Kovcheg)</h1>
+<h1 align="center">Tilda AI Agent Feeds v0.1</h1>
 
 <p align="center">
   <b>Ультимативное Chrome-расширение для генерации "Jaw-Dropping" статей и обложек в Tilda Потоках.</b>
 </p>
 
 <div align="center">
-  <img src="screenshot.png" alt="Tilda AI Agent Feeds Interface" width="400" />
+  <img src="screenshot.png" alt="Tilda AI Agent Feeds Interface" width="250" />
+  <img src="screenshot_text.png" alt="Tilda AI Agent Text" width="250" />
+  <img src="screenshot_cover.png" alt="Tilda AI Agent Cover" width="250" />
 </div>
 
 <div align="center">
